@@ -11,7 +11,7 @@ class Maze(object):
         self.constructAllowedStates()                           # construct the allowed states
 
     def printMaze(self):
-        %matplotlib inline
+        #%matplotlib inline
         plt.figure(figsize=(10,10))
         plt.show(sns.heatmap(self.maze, cmap='Dark2', cbar=False, linewidths=.5))
         
@@ -19,7 +19,7 @@ class Maze(object):
         y, x = state
         y += actionSpace[action][0]                             # extract the coordinates from the action space
         x += actionSpace[action][1]
-        if y < 0 or x < 0 or y > 5 or x > 5:                    # check if the move is allowed, inside the maze
+        if y < 0 or x < 0 or y > self.maze.shape[1]-1 or x > self.maze.shape[0]-1:                    # check if the move is allowed, inside the maze
             return False
 
         if self.maze[y,x] == 0 or self.maze[y,x] == 2:          #check if the new state is zero (or the actual position of the robot, because not moving is valid)
@@ -49,7 +49,7 @@ class Maze(object):
 
     def isGameOver(self):                                        # Check if the position is in the exit.
         x, y = self.get_matrix().shape
-        if self.robotPosition == (x - 1, y - 1): # TODO: change to last node in maze
+        if self.robotPosition == (x - 1, y - 1):
             return True
         else:
             return False
